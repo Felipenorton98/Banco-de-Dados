@@ -1,0 +1,45 @@
+-- Tabela de Paciente
+CREATE TABLE Paciente (
+    PatientID INT PRIMARY KEY AUTO_INCREMENT,  -- Chave primária
+    Name VARCHAR(100) NOT NULL,
+    BirthDate DATE NOT NULL,
+    Address VARCHAR(255),
+    Phone VARCHAR(15),
+    Email VARCHAR(100)
+);
+
+-- Tabela de Função
+CREATE TABLE Function (
+    FunctionID INT PRIMARY KEY AUTO_INCREMENT,  -- Chave primária
+    Name VARCHAR(100) NOT NULL
+);
+
+-- Tabela de Departamento
+CREATE TABLE Department (
+    DepartmentID INT PRIMARY KEY AUTO_INCREMENT,  -- Chave primária
+    Name VARCHAR(100) NOT NULL
+);
+
+-- Tabela de Funcionário
+CREATE TABLE Employee (
+    EmployeeID INT PRIMARY KEY AUTO_INCREMENT,  -- Chave primária
+    Name VARCHAR(100) NOT NULL,
+    FunctionID INT,
+    DepartmentID INT,
+    Email VARCHAR(100),
+    Phone VARCHAR(15),
+    FOREIGN KEY (FunctionID) REFERENCES Function(FunctionID),  -- Chave estrangeira
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)  -- Chave estrangeira
+);
+
+-- Tabela de Exames
+CREATE TABLE Exam (
+    ExamID INT PRIMARY KEY AUTO_INCREMENT,  -- Chave primária
+    Type VARCHAR(100) NOT NULL,
+    Date DATE NOT NULL,
+    IsFit BOOLEAN NOT NULL,  -- Indica se o paciente está apto
+    PatientID INT,
+    EmployeeID INT,
+    FOREIGN KEY (PatientID) REFERENCES Paciente(PatientID),  -- Chave estrangeira
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)  -- Chave estrangeira
+);
